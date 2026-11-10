@@ -1,0 +1,80 @@
+:host {
+  display: block;
+  perspective: 800px;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0s linear 0.35s;
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 14px;
+  }
+
+  // Pareja encontrada: desaparece pero conserva su hueco en la grilla.
+  &.matched {
+    opacity: 0;
+    transform: scale(0.6);
+    visibility: hidden;
+    cursor: default;
+  }
+}
+
+.inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+
+  .flipped & {
+    transform: rotateY(180deg);
+  }
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+}
+
+.back {
+  background:
+    radial-gradient(circle at 30% 25%, rgb(255 255 255 / 0.25) 0 18%, transparent 19%),
+    linear-gradient(135deg, var(--card-back-1), var(--card-back-2));
+  color: #fff;
+  font-size: clamp(1.5rem, 8vw, 2.5rem);
+  font-weight: 800;
+}
+
+.front {
+  background: var(--card-front);
+  transform: rotateY(180deg);
+
+  img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+  }
+}

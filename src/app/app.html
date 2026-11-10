@@ -1,0 +1,56 @@
+<main class="app">
+  <header class="header">
+    <h1>🐾 Memoria Animal</h1>
+    <button type="button" class="btn small" (click)="newGame()">Nuevo juego</button>
+  </header>
+
+  <nav class="levels" aria-label="Dificultad">
+    @for (level of difficulties; track level.label) {
+      <button
+        type="button"
+        class="chip"
+        [class.active]="level === game.difficulty()"
+        [attr.aria-pressed]="level === game.difficulty()"
+        (click)="newGame(level)"
+      >
+        {{ level.label }}
+      </button>
+    }
+  </nav>
+
+  <section class="stats" aria-live="polite">
+    <div><span>Movimientos</span><strong>{{ game.moves() }}</strong></div>
+    <div><span>Parejas</span><strong>{{ game.matchesFound() }}/{{ game.difficulty().pairs }}</strong></div>
+    <div><span>Tiempo</span><strong>{{ game.elapsedSeconds() | time }}</strong></div>
+  </section>
+
+  @switch (game.status()) {
+    @case ('loading') {
+      <div class="message">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Buscando animales…</p>
+      </div>
+    }
+    @case ('error') {
+      <div class="message">
+        <p>No se pudieron cargar las imágenes. Revisa tu conexión.</p>
+        <button type="button" class="btn" (click)="newGame()">Reintentar</button>
+      </div>
+    }
+    @default {
+      <app-board
+        [cards]="game.cards()"
+        [columns]="game.difficulty().columns"
+        (selectCard)="game.selectCard($event)"
+      />
+    }
+  }
+
+  <footer class="credits">
+    Ilustraciones: Noto Emoji vía <a href="https://iconify.design" target="_blank" rel="noopener">Iconify API</a>
+  </footer>
+</main>
+
+@if (game.status() === 'won') {
+  <app-win-dialog [moves]="game.moves()" [seconds]="game.elapsedSeconds()" (playAgain)="newGame()" />
+}

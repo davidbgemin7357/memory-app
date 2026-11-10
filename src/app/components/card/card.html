@@ -1,0 +1,17 @@
+@let c = card();
+<button
+  type="button"
+  class="card"
+  [class.flipped]="c.flipped"
+  [class.matched]="c.matched"
+  [disabled]="c.matched"
+  [attr.aria-label]="c.flipped ? c.name : 'Carta boca abajo'"
+  (click)="selectCard.emit(c.id)"
+>
+  <span class="inner">
+    <span class="face back" aria-hidden="true">?</span>
+    <span class="face front">
+      <img [src]="c.imageUrl" [alt]="c.name" draggable="false" />
+    </span>
+  </span>
+</button>
