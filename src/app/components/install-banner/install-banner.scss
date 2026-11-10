@@ -1,0 +1,56 @@
+// Va dentro del flujo de la página (no flotante) para que el tablero se
+// encoja y ninguna carta quede tapada por el aviso.
+:host {
+  flex-shrink: 0;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px 10px 10px;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15);
+  animation: slide-up 0.3s ease;
+
+  p {
+    flex: 1;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+}
+
+.share {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.2em;
+  color: #0a84ff;
+}
+
+.close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

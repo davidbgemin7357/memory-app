@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { Card } from '../../models/card.model';
 import { CardComponent } from '../card/card';
 
@@ -6,7 +6,7 @@ import { CardComponent } from '../card/card';
   selector: 'app-board',
   imports: [CardComponent],
   template: `
-    <div class="board" [style.--columns]="columns()">
+    <div class="board" [style.--columns]="columns()" [style.--rows]="rows()">
       @for (card of cards(); track card.id) {
         <app-card [card]="card" (selectCard)="selectCard.emit($event)" />
       }
@@ -19,4 +19,6 @@ export class BoardComponent {
   readonly cards = input.required<Card[]>();
   readonly columns = input(4);
   readonly selectCard = output<number>();
+
+  protected readonly rows = computed(() => Math.ceil(this.cards().length / this.columns()));
 }

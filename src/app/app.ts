@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { BoardComponent } from './components/board/board';
+import { InstallBannerComponent } from './components/install-banner/install-banner';
 import { WinDialogComponent } from './components/win-dialog/win-dialog';
 import { DIFFICULTIES, Difficulty } from './models/card.model';
 import { GameService } from './services/game.service';
@@ -7,7 +8,7 @@ import { TimePipe } from './time.pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [BoardComponent, WinDialogComponent, TimePipe],
+  imports: [BoardComponent, WinDialogComponent, InstallBannerComponent, TimePipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
